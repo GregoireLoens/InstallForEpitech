@@ -1,0 +1,67 @@
+#!  /usr/bin/env python3
+
+
+import os
+from tkinter import *
+
+
+def install(isok1, isok2, isok3, isok4, value, value2):
+    if isok1.get() == 1:
+        os.system("sudo " + value2.get())
+    if isok2.get() == 1:
+        os.system("sudo " + value.get() + " emacs vim")
+        os.system("cat ../src/header/.emacs >> ~/.emacs")
+        os.system("mkdir ~/.emacs.d")
+        os.system("cp ../src/header/std_comment.el ~/.emacs.d/")
+    if isok3.get() == 1:
+        os.system("sudo " + value.get() + " gcc g++ clang valgrind gdb make")
+    if isok4.get() == 1:
+        os.system("chmod +x ../src/rendu/blih")
+        os.system("sudo cp ../src/rendu/blih /usr/bin")
+        os.system("sudo " + value.get() + " openssh git")
+        os.system("sudo " + value.get() + " gitview")
+        os.system("ssh-keygen -t rsa")
+        os.system("blih sshkey upload ~/.ssh/id_rsa.pub")
+    end = Tk()
+    end.title("End")
+    end_in = Label(end, text="Your environment is ready !")
+    end_in.pack()
+    ok_end = Button(end, text="Ok", command=lambda: exit(666))
+    ok_end.pack()
+    end.mainloop()
+
+
+def enable_window():
+    window = Tk()
+    window.title("Install")
+    isok1 = IntVar()
+    isok2 = IntVar()
+    isok3 = IntVar()
+    isok4 = IntVar()
+    instruction = Label(window, text="Choose your options")
+    quit_button = Button(window, text="Quit", command=window.quit)
+    instruction.pack()
+    value = StringVar()
+    value.set("ex:dnf install")
+    value2 = StringVar()
+    value2.set("ex:dnf update")
+    pmi = Entry(window, textvariable=value, width=12)
+    pmu = Entry(window, textvariable=value2, width=12)
+    update = Checkbutton(window, text="Update", variable=isok1)
+    etext = Checkbutton(window, text="Emacs & Vim", variable=isok2)
+    c = Checkbutton(window, text="C & C++", variable=isok3)
+    rendu = Checkbutton(window, text="Rendu (blih, git, ssh)", variable=isok4)
+    ok_button = Button(window, text="Ok", command=lambda: install(isok1, isok2, isok3, isok4, value, value2))
+    pmi.pack()
+    pmu.pack()
+    update.pack()
+    etext.pack()
+    c.pack()
+    rendu.pack()
+    ok_button.pack(side="left")
+    quit_button.pack(side="right")
+    window.mainloop()
+
+
+if __name__ == "__main__":
+    enable_window()

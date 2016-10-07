@@ -1,0 +1,41 @@
+#!  /usr/bin/env python3
+
+
+import os
+
+
+def install_process():
+    print("### EPITECH ENVIRONMENT INSTALLATION ###")
+    pmu = input("quel est votre commande d'update ? (dnf update etc...)\n")
+    pmi = input("quel est votre commande d'installation ? (dnf install, urpmi, pacman -S etc...\n")
+    answer = input("Avant de commencer souhaitez-vous une update de vos paquets actuels ? (O ou N)\n")
+    if answer == 'O':
+        os.system("sudo " + pmu)
+    answer = input("1 --> Voulez-vous installer les éditeurs de textes emacs et vim ? (O ou N)\n")
+    if answer == 'O':
+        os.system("sudo " + pmi + " emacs vim")
+        os.system("cat src/header/.emacs >> ~/.emacs")
+        os.system("mkdir ~/.emacs.d")
+        os.system("cp src/header/std_comment.el ~/.emacs.d/")
+        print("### Emacs a été installé avec les headers ###")
+    print("### Si vous souhaitez un IDE je vous conseille Clion (man Google) ###")
+    answer = input("2 --> Souhaitez-vous les utilitaires C et C++ ? (O ou N)\n")
+    if answer == 'O':
+        os.system("sudo " + pmi + " gcc g++ clang valgrind gdb make")
+    answer = input("3 --> Souhaitez-vous installer le dispositif de rendu ? (O ou N)\n")
+    if answer == 'O':
+        os.system("chmod +x src/rendu/blih")
+        os.system("sudo cp src/rendu/blih /usr/bin")
+        os.system("sudo " + pmi + " openssh git")
+        os.system("sudo " + pmi + " gitview")
+        os.system("ssh-keygen -t rsa")
+        os.system("blih sshkey upload ~/.ssh/id_rsa.pub")
+        print("### Blih git gitview et openssh ont été installé vos clés ssh ont été uploadé vous pouvez rendre ###")
+    answer = input("Bonus --> Voulez-vous zsh et oh my zsh ainsi que terminator ? (O ou N)\n")
+    if answer == 'O':
+        os.system("sudo " + pmi + " terminator zsh")
+    os.system("emacs -nw src/coucou")
+    print("### FIN DE L'INSTALLATION ###")
+
+if __name__ == "__main__":
+    install_process()
