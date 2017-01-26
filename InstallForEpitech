@@ -21,7 +21,7 @@ def install_process():
     print("### Si vous souhaitez un IDE je vous conseille Clion (man Google) ###")
     answer = input("2 --> Souhaitez-vous les utilitaires C et C++ ? (O ou N)\n")
     if answer == 'O':
-        os.system("sudo " + pmi + " gcc g++ clang valgrind gdb make")
+        os.system("sudo " + pmi + " gcc clang valgrind gdb make cmake")
     answer = input("3 --> Souhaitez-vous installer le dispositif de rendu ? (O ou N)\n")
     if answer == 'O':
         os.system("chmod +x src/rendu/blih")
